@@ -40,8 +40,7 @@ public class SubjectController {
 
     @PutMapping("{id}")
     public String updateSubject(@RequestBody String updatedSubject) {
-        System.out.println("PUT");
-        subjects.add(updatedSubject);
+        System.out.println("PUT" + updatedSubject);
         return "Updated subject";
     }
 
