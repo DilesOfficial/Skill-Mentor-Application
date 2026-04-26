@@ -1,53 +1,73 @@
 package com.skillmentor.skillmentor.controllers;
 
+import com.skillmentor.skillmentor.dto.SubjectDTO;
+import com.skillmentor.skillmentor.entities.Subject;
+import com.skillmentor.skillmentor.services.SubjectService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/subjects")
+@RequiredArgsConstructor
 public class SubjectController {
 
-    // Path Parameter
-    // Query Parameter -> ?name=jon
+    private final ModelMapper modelMapper;
+    private final SubjectService subjectService;
 
-    // Mock Database
-    private final List<String> subjects = new ArrayList<>((
-            List.of("Maths", "Science", "History")
-    ));
 
     @GetMapping
-    public String getAllSubjects(@RequestParam(name = "name", defaultValue = "all") String name) {
-        String result = subjects.toString();
-        System.out.println(result);
-        return result;
+    public List<Subject> getAllSubjects(@RequestParam(name = "name", defaultValue = "all") String name) {
+//        String result = subjects.toString();
+//        System.out.println(result);
+        return subjectService.getAllSubjects();
     }
 
-    @GetMapping("{id}")
-    public String getSubjectById(@PathVariable int id) {
-        System.out.println("Getting subject by id " + id);
-        return subjects.get(id);
-    }
+//    @GetMapping("{id}")
+//    public Subject getSubjectById(@PathVariable int id) {
+//        System.out.println("Getting subject by id " + id);
+//        return subjectService.get(id);
+//    }
 
     @PostMapping
-    public String createSubject(@RequestBody String subject) {
-        System.out.println("POST");
-        subjects.add(subject);
-        return "Created subject";
+    public Subject createSubject(@Validated @RequestBody SubjectDTO subjectDTO) {
+
+        // Validation to check subject name length
+//        if (subject.getSubjectName().length() > 20) {
+//            Subject errorSubject = new Subject();
+//            errorSubject.setSubjectName("");
+//            errorSubject.setDescription("");
+//            return errorSubject;
+//        }
+
+        // DTO eken karanne code line godak danne nathuwa validation part eka thawa thiyenawa validation kiyanne eka part ekak witharai thawa thiyenawa
+
+//        // Mapping Subject DTO to Subject
+//        Subject subject = new Subject();
+//        subject.setSubjectName(subjectDTO.getSubjectName());
+//        subject.setDescription(subjectDTO.getDescription());
+
+        // Using Model Mapper
+        Subject subject = modelMapper.map(subjectDTO, Subject.class);
+
+//        subjects.add(subject);
+        return subjectService.addNewSubject(subject);
     }
 
-    @PutMapping("{id}")
-    public String updateSubject(@RequestBody String updatedSubject) {
-        System.out.println("PUT" + updatedSubject);
-        return "Updated subject";
-    }
-
-    @DeleteMapping("{id}")
-    public String deleteSubject(@PathVariable int id) {
-        System.out.println("DELETE");
-        subjects.remove(id);
-        return subjects.toString();
-    }
+//    @PutMapping("{id}")
+//    public String updateSubject(@RequestBody String updatedSubject) {
+//        System.out.println("PUT" + updatedSubject);
+//        return "Updated subject";
+//    }
+//
+//    @DeleteMapping("{id}")
+//    public String deleteSubject(@PathVariable int id) {
+//        System.out.println("DELETE");
+//        subjects.remove(id);
+//        return subjects.toString();
+//    }
 }
