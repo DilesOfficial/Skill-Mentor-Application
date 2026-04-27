@@ -1,6 +1,7 @@
 package com.skillmentor.skillmentor.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -11,4 +12,7 @@ public class SubjectDTO {
 
     @Size(max = 100, message = "Description length should be less than 100")
     private String description;
+
+    @NotNull
+    private Long mentorId;
 }

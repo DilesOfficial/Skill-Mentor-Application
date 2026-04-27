@@ -53,7 +53,7 @@ public class SubjectController {
         Subject subject = modelMapper.map(subjectDTO, Subject.class);
 
 //        subjects.add(subject);
-        return subjectService.addNewSubject(subject);
+        return subjectService.addNewSubject(subjectDTO.getMentorId(), subject);
     }
 
     @PutMapping("{id}")
