@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/mentors")
+@RequestMapping(path = "/api/v1/mentors")
 @RequiredArgsConstructor
 @Validated
 public class MentorController {
@@ -37,8 +37,8 @@ public class MentorController {
     }
 
     @PutMapping("{id}")
-    public Mentor updateMentor(@PathVariable Long id, @Valid @RequestBody MentorDTO updateMentorDTO) {
-        Mentor mentor = modelMapper.map(updateMentorDTO, Mentor.class);
+    public Mentor updateMentor(@PathVariable Long id, @Valid @RequestBody MentorDTO updatedMentorDTO) {
+        Mentor mentor = modelMapper.map(updatedMentorDTO, Mentor.class);
         return mentorService.updateMentorById(id, mentor);
     }
 

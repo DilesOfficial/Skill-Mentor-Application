@@ -7,10 +7,11 @@ import lombok.Data;
 
 @Data
 public class SubjectDTO {
-    @NotBlank(message = "Cannot be Null or Empty")
+    @NotNull(message = "Cannot be null")
+    @Size(min = 5, message = "Subject must be at least 5 charaters long")
     private String subjectName;
 
-    @Size(max = 100, message = "Description length should be less than 100")
+    @Size(max = 100, message = "Description must not exceed 100 characters")
     private String description;
 
     @NotNull

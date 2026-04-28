@@ -31,28 +31,34 @@ public class SubjectController {
         return subjectService.getSubjectById(id);
     }
 
-    @PostMapping
-    public Subject createSubject(@Valid @RequestBody SubjectDTO subjectDTO) {
-
-        // Validation to check subject name length
+//    @PostMapping
+//    public Subject createSubject(@Valid @RequestBody SubjectDTO subjectDTO) {
+//
+//        // Validation to check subject name length
 //        if (subject.getSubjectName().length() > 20) {
 //            Subject errorSubject = new Subject();
 //            errorSubject.setSubjectName("");
 //            errorSubject.setDescription("");
 //            return errorSubject;
-//        }
-
-        // DTO eken karanne code line godak danne nathuwa validation part eka thawa thiyenawa validation kiyanne eka part ekak witharai thawa thiyenawa
-
+//       }
+//
+//        // DTO eken karanne code line godak danne nathuwa validation part eka thawa thiyenawa validation kiyanne eka part ekak witharai thawa thiyenawa
+//
 //        // Mapping Subject DTO to Subject
 //        Subject subject = new Subject();
 //        subject.setSubjectName(subjectDTO.getSubjectName());
 //        subject.setDescription(subjectDTO.getDescription());
-
-        // Using Model Mapper
-        Subject subject = modelMapper.map(subjectDTO, Subject.class);
-
+//
+//        // Using Model Mapper
+//        Subject subject = modelMapper.map(subjectDTO, Subject.class);
+//
 //        subjects.add(subject);
+//        return subjectService.addNewSubject(subjectDTO.getMentorId(), subject);
+//    }
+
+    @PostMapping
+    public Subject createSubject(@Valid @RequestBody SubjectDTO subjectDTO) {
+        Subject subject = modelMapper.map(subjectDTO, Subject.class);
         return subjectService.addNewSubject(subjectDTO.getMentorId(), subject);
     }
 
